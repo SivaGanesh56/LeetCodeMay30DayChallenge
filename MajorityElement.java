@@ -10,7 +10,6 @@ Given an array of size n, find the majority element. The majority element is the
 
 class Solution {
     public int majorityElement(int[] nums) {
-        if(nums.length==1) return nums[0];
         HashMap<Integer,Integer> map = new HashMap<>();
         int n = nums.length;
         for(int i=0;i<n;i++){
@@ -27,6 +26,6 @@ class Solution {
                 return nums[i];
             }
         }
-        return -1;
+        return nums[0];
     }
 }
