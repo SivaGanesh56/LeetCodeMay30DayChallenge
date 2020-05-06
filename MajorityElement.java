@@ -21,11 +21,7 @@ class Solution {
             	map.put(nums[i],1);
             }
 	     }
-        for(int i=0;i<=n/2;i++){
-            if(map.get(nums[i])>n/2){
-                return nums[i];
-            }
-        }
-        return nums[0];
+        return map.keySet().stream().
+            filter(k->map.get(k)>n/2).findFirst().get();
     }
 }
