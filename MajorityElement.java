@@ -8,20 +8,23 @@ Given an array of size n, find the majority element. The majority element is the
 
 */
 
+//Apporach : Morris Voting Algo
+
 class Solution {
     public int majorityElement(int[] nums) {
-        HashMap<Integer,Integer> map = new HashMap<>();
-        int n = nums.length;
-        for(int i=0;i<n;i++){
-            if(map.containsKey(nums[i])){
-                int val = map.get(nums[i]);
-                val++;
-                map.put(nums[i], val);
+        int count = 1;
+        int index = 0;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i]==nums[index]){
+                count++;
             }else{
-            	map.put(nums[i],1);
+                count--;
             }
-	     }
-        return map.keySet().stream().
-            filter(k->map.get(k)>n/2).findFirst().get();
+            if(count==0){
+            index = i;
+            count = 1;
+            }
+        }
+      return nums[index];
     }
 }
