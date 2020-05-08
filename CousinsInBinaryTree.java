@@ -9,37 +9,36 @@ Two nodes of a binary tree are cousins if they have the same depth, but have dif
 */
 
 class Solution {
+    TreeNode xParent;
+    TreeNode yParent;
+    int xDepth;
+    int yDepth;
+    int foundNodes = 2;
     public boolean isCousins(TreeNode root, int x, int y) {
         if(root==null) return false;
-        int a = getDepth(root,x,0);
-        int b = getDepth(root,y,0);
-        System.out.println(a+" "+b);
-        if((a==0 && b==0) || a!=b){
-            return false;
-        }
-        return helper(root,x,y);
-    }
-    
-    public boolean helper(TreeNode root,int x,int y){
-        if(root==null) return false;
-        if(root.left!=null && root.right!=null){
-            if( (root.left.val==x && root.right.val==y) || (root.left.val==y && root.right.val==x) ){
-                return false;
-            }
-        }
-        if(root.val==x || root.val==y){
+        isCousinsUtil(root,x,y,null,0);
+        if(foundNodes==0 && xDepth==yDepth && xParent!=yParent){
             return true;
         }
-        return helper(root.left,x,y) || helper(root.right,x,y);
+        return false;
     }
     
-    public int getDepth(TreeNode root,int x,int depth){
-        if(root==null) return 0;
+    public void isCousinsUtil(TreeNode root,int x,int y,TreeNode parent,int depth){
+        if(root==null || foundNodes==0) return;
+        
         if(root.val==x){
-            return depth;
+            xParent = parent;
+            xDepth = depth;
+            foundNodes--;
         }
-        int value = getDepth(root.left,x,depth+1);
-        return value!=0?value:getDepth(root.right,x,depth+1);
+        
+        if(root.val==y){
+            yParent = parent;
+            yDepth = depth;
+            foundNodes--;
+        }
+        
+        isCousinsUtil(root.left,x,y,root,depth+1);
+        isCousinsUtil(root.right,x,y,root,depth+1);
     }
-    
-}
+      
