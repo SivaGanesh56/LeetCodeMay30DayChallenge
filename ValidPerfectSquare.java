@@ -8,25 +8,22 @@ Given a positive integer num, write a function which returns True if num is a pe
 
 */
 
-/*
- Apporach : 
-    1 -> 1
-    4 -> 1+3
-    9 -> 1+3+5
-    16-> 1+3+5+7
-    25-> 1+3+5+7+9
- 
-*/
-
+//Apporach: Binary Search
 
 class Solution {
-    public boolean isPerfectSquare(int n) {
-        int i = 1;
-        while(n>0){
-            n-=i;
-            i+=2;
+    public boolean isPerfectSquare(int num) {
+       int low = 1, high = num;
+        while (low <= high) {
+            long mid = low+(high-low)/2;
+            if (mid * mid == num) {
+                return true;
+            } else if (mid * mid < num) {
+                low = (int) mid + 1;
+            } else {
+                high = (int) mid - 1;
+            }
         }
-        return n==0;
+        return false;
     }
 
 }
