@@ -8,14 +8,25 @@ Given a positive integer num, write a function which returns True if num is a pe
 
 */
 
+/*
+ Apporach : 
+    1 -> 1
+    4 -> 1+3
+    9 -> 1+3+5
+    16-> 1+3+5+7
+    25-> 1+3+5+7+9
+ 
+*/
+
+
 class Solution {
-    public boolean isPerfectSquare(int num) {
-        if(num<=1) return true;
-        for(int i=2;i<=num/2;i++){
-            if(i*i==num){
-                return true;
-            }
+    public boolean isPerfectSquare(int n) {
+        int i = 1;
+        while(n>0){
+            n-=i;
+            i+=2;
         }
-        return false;
+        return n==0;
     }
+
 }
