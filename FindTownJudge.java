@@ -19,23 +19,17 @@ There is exactly one person that satisfies properties 1 and 2.
 class Solution {
     public int findJudge(int n, int[][] trust) {
         if(trust.length==0) return 1;
-        boolean[] visited = new boolean[n+1];
-        HashMap<Integer,Integer> map = new HashMap<>();
+        int[] a = new int[n+1];
         for(int i=0;i<trust.length;i++){
-            int a = trust[i][0];
-            int b = trust[i][1];
-            visited[a] = true;
-            if(!visited[b]){
-                if(map.containsKey(b)){
-                    map.put(b,map.get(b)+1);
-                }else{
-                    map.put(b,1);
-                }
+            int x = trust[i][0];
+            int y = trust[i][1];
+            a[x] = -1;
+            if(a[y]!=-1){
+                ++a[y];
             }
         }
-        
         for(int i=1;i<=n;i++){
-            if(!visited[i] && map.containsKey(i) && map.get(i)==n-1){
+            if(a[i]==n-1){
                 return i;
             }
         }
