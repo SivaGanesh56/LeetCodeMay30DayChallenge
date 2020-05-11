@@ -12,52 +12,29 @@ To perform a "flood fill", consider the starting pixel, plus any pixels connecte
 
 */
 
-//Apporach: BFS
+//Apporach: DFS
 
 import java.util.*;
 
 class Solution {
     
-    class Node{
-        int x;
-        int y;
-        public Node(int x,int y){
-            this.x = x;
-            this.y = y;
-        }
-    }
     
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
-        if(image.length==0 || image[0].length==0) return image;
-        Queue<Node> q = new LinkedList<>();
-        int[] x = {1,-1,0,0};
-        int[] y = {0,0,1,-1};
-        q.offer(new Node(sr,sc));
-        boolean[][] visited = new boolean[image.length][image[0].length];
-        while(!q.isEmpty()) {       	
-        	Node res = q.poll();
-        	int row = res.x;
-        	int col = res.y;
-        	visited[row][col] = true;
-        	for(int i=0;i<4;i++) {
-        		int r = row+x[i];
-        		int c = col+y[i];
-        		if(isValid(r,c,image.length,image[0].length) && 
-                                        image[r][c] == image[row][col] && !visited[r][c]){
-                    q.add(new Node(r,c));
-                } 
-        	}
-        	image[row][col] = newColor;
-        }
-      return image;
+        if (image[sr][sc] == newColor) return image;
+        fill(image,sr,sc,image[sr][sc],newColor);
+        return image;
     }
     
-    public boolean isValid(int row,int col,int rows,int cols){
-        if(row<0 || row>=rows || col<0 || col>=cols){
-            return false;
-        }
-        return true;
+   private void fill(int[][] image, int sr, int sc, int color, int newColor) {
+        if (sr < 0 || sr >= image.length || sc < 0 || sc >= image[0].length || image[sr][sc] != color) return;
+        image[sr][sc] = newColor;
+        fill(image, sr + 1, sc, color, newColor);
+        fill(image, sr - 1, sc, color, newColor);
+        fill(image, sr, sc + 1, color, newColor);
+        fill(image, sr, sc - 1, color, newColor);
     }
+    
     
     
 }
+        	
