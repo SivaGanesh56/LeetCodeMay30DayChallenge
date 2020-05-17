@@ -1,0 +1,54 @@
+/*
+
+@Author: Siva Ganesh
+
+Problem Link ==>  https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/536/week-3-may-15th-may-21st/3332/
+
+Description:  Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+
+Sample cases:
+      1. Input:
+            s: "cbaebabacd" p: "abc"
+         Output:
+            [0, 6]
+      2. Input:
+            s: "abab" p: "ab"
+         Output:
+            [0, 1, 2]
+            
+Apporach: Linear Scanning (not optimal)
+
+*/
+
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        int m = p.length();
+        int n = s.length();
+        List<Integer> list = new ArrayList<Integer>();
+        if(n<m) return list;
+        HashSet<Character> hs = new HashSet<>();
+        int sum1 = 0;
+        for(int i=0;i<m;i++){
+            sum1+=p.charAt(i);
+            hs.add(p.charAt(i));
+        }
+        int sum2 = 0;
+        for(int i=0;i<n-m+1;i++){
+            sum2 = 0;
+            for(int j=i;j<i+m;j++){
+                char temp = s.charAt(j);
+                sum2+=temp;
+                if(!hs.contains(temp) || sum2>sum1){
+                    break;
+                }
+            }
+            if(sum1==sum2){
+                list.add(i);
+            }
+        }
+        return list;
+    }
+}
+
+          
