@@ -12,26 +12,34 @@ Sample Cases:
           2. Input:s1= "ab" s2 = "eidboaoo"
              Output: False
          
-Apporach: Parallel Sorting(Not Optimal)
-
-Note: Use sliding window technique for optimal solution 
+Apporach: sliding window technique
 
 */
 
-
 public class Solution {
-
     public boolean checkInclusion(String s1, String s2) {
-        s1 = sort(s1);
-        for (int i = 0; i <= s2.length() - s1.length(); i++) {
-            if (s1.equals(sort(s2.substring(i, i + s1.length()))))
-                return true;
+        int m = s1.length();
+        int n = s2.length();
+        if(m>n) return false;
+        int[] a = new int[26];
+        for(int i=0;i<m;i++){
+            ++a[s1.charAt(i)-97];
+            --a[s2.charAt(i)-97];
+        }
+        if(isMatched(a)) return true;
+        for(int i=m;i<n;i++){
+            --a[s2.charAt(i)-97];
+            ++a[s2.charAt(i-m)-97];
+            if(isMatched(a)) return true;
         }
         return false;
     }
-    public String sort(String s) {
-        char[] t = s.toCharArray();
-        Arrays.sort(t);
-        return new String(t);
-    }
+    
+    //Every Element in Array must be zero in order to match
+    private boolean isMatched(int[] a){
+        for(int i=0;i<26;i++){
+            if(a[i]!=0) return false;
+        }
+        return true;
+    }   
 }
