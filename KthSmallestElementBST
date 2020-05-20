@@ -1,0 +1,38 @@
+/*
+
+@Author: Siva Ganesh
+
+Problem Link ==>  https://leetcode.com/explore/challenge/card/may-leetcoding-challenge/536/week-3-may-15th-may-21st/3335/
+
+Description:  Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
+
+Sample Cases:
+        1. Input: root = [3,1,4,null,2], k = 1
+           Output: 1
+           
+ Apporach: PreOrder Traveseral
+ 
+ */
+ 
+ class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        if(root==null) return 0;
+        List<Integer> list = new ArrayList<>();
+        helper(root,list);
+        int c = 1;
+        for(Integer el: list){
+            if(c==k){
+                return el;
+            }
+            c++;
+        }
+        return 0;
+    }
+    
+    public void helper(TreeNode root,List<Integer> list){
+        if(root==null) return;
+        helper(root.left,list);
+        list.add(root.val);
+        helper(root.right,list);
+    }
+}
