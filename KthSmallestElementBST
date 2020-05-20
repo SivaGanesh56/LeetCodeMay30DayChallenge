@@ -25,7 +25,7 @@ Sample Cases:
                 return el;
             }
             c++;
-        }
+        } 
         return 0;
     }
     
