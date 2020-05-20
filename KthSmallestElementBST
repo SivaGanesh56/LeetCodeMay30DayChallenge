@@ -10,7 +10,7 @@ Sample Cases:
         1. Input: root = [3,1,4,null,2], k = 1
            Output: 1
            
- Apporach: PreOrder Traveseral
+ Apporach: InOrder Traveseral
  
  */
  
