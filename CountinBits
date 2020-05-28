@@ -1,0 +1,20 @@
+/*
+
+@Author: Siva Ganesh
+
+Problem Link ==> https://leetcode.com/submissions/detail/345783420/?from=/explore/challenge/card/may-leetcoding-challenge/537/week-4-may-22nd-may-28th/3343/
+
+Apporach: Bit Manipulation
+
+*/
+
+
+class Solution {
+    public int[] countBits(int num) {
+        int[] res = new int[num + 1];
+        for (int i=1; i<=num; i++){
+            res[i] = res[i >> 1] + (i & 1);
+        }    
+        return res;
+    }
+}
